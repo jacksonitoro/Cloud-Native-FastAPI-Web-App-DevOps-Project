@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: jaydaniel10/student-tracker
+  IMAGE_NAME: jaydaniel10/web-app 
 
 jobs:
   build-test-push-deploy:
@@ -69,9 +69,9 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           docker pull ${{ env.IMAGE_NAME }}:latest
-          docker stop student-tracker || true
-          docker rm student-tracker || true
-          docker run -d --name student-tracker -p 8000:8000 \
+          docker stop web-app || true
+          docker rm web-app || true
+          docker run -d --name web-app -p 8000:8000 \
             -e VAULT_ADDR=${{ secrets.VAULT_ADDR }} \
             -e VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }} \
             -e VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }} \
@@ -86,9 +86,9 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           docker pull ${{ env.IMAGE_NAME }}:latest
-          docker stop student-tracker || true
-          docker rm student-tracker || true
-          docker run -d --name student-tracker -p 8000:8000 \
+          docker stop web-app || true
+          docker rm web-app || true
+          docker run -d --name web-app -p 8000:8000 \
             -e VAULT_ADDR=${{ secrets.VAULT_ADDR }} \
             -e VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }} \
             -e VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }} \
